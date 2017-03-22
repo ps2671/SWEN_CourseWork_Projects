@@ -1,0 +1,40 @@
+{% extends "master_page.html" %}
+
+{% block title %}
+Register
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% include 'user_profile_navbar.html' %}
+
+<div class="container">
+    <br>
+    <span style="color:red">{{ error }}</span>
+
+    <div class="row">
+        <div class="center-block" style="width:500px;">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Register</h4></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form class="form-signin" action="" method="POST">
+                                {% csrf_token %}
+                                {{ form_user_personal_information.as_p }}
+                                <button type="submit" class="btn  btn-primary btn-block"><span class="glyphicon glyphicon-check"></span> Register Now</button> <br>
+                                <a href="/">Have an account, Log in</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

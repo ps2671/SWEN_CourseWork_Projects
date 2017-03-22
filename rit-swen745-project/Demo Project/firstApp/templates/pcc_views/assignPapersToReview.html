@@ -1,0 +1,80 @@
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+{% if is_within_deadline %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>Assign Papers To Review</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            {% if docs_unassigned %}
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Document Title</th>
+                            <th>Reviewers Pending</th>
+                            <th>Doc Preview</th>
+                            <th>Select PCM Reviewer</th>
+                            <th>Assign</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doc,count in dict_count.items %}
+                            <form action="/assignPapersToReview/" method="post">
+                                {% csrf_token %}
+                                <tr>
+                                    <td>{{doc.doc_title}}
+                                            
+                                    </td>
+                                    <td>
+                                      {{count}}
+                                    </td>
+                                    <td>
+                                        <input class="btn btn-primary" type="submit" value="View" target="_blank"name="previewDoc"/>
+                                        <input type="hidden" value={{ doc.id }} name="document"/>
+                                    </td>
+
+                                    <!-- TODO : if not already requested -->
+                                    <!-- TODO : PCM should not be an author. -->
+                                    {% if pcms %}
+                                        <td>
+												<select name="pcm_id" id="pcm_id" size="3">
+													{% for pcm in pcms %}
+													<option value="{{ pcm.id }}">{{ pcm.username }}</option>
+													{% endfor %}
+												</select>
+                                        </td>
+                                        <td>
+                                         <input class="btn btn-success" type="submit" value="Assign" name="assignPaper"/>
+                                    	</td> 
+                                    {% else %}
+                                        <td>
+                                           <select>
+													<option value=""></option>
+											</select>
+                                        </td>
+                                        <td>
+                                         <input class="btn btn-success" type="submit" value="Assign" name="assignPaper" disabled/>
+                                    	</td> 
+                                    {% endif %}
+                                    
+                                    
+                                </tr>
+                            </form>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+                <div class="text-center">
+                    <span>No Submissions to view.</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+The deadline to submit reviews has passed
+{% endif %}
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- ShareZone List - Start -->
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10"> 
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Share Zone</b>
+            </div>
+        </div>
+        <div class="panel-body"> 
+
+        	<div class="container-fluid">
+<table class="table table-condensed">
+	<thead>
+        <tr>
+            <th>ZipCode</th>
+            <th>Community Shed</th>
+        </tr>
+        </thead>
+     <tbody>
+  
+            <tr>
+                <td>{{ ShareZone.zipCode }}</td>
+				{% if ShareZone.has_CommunityShed == True %}
+                <td>{{ ShareZone.CommunityShedLocation }}</td>
+				{% for group in user.groups.all %}
+						{% if group.name == 'admin_user' %}
+				<td>  <a href='/cshed/' type="submit"  class="btn btn-default" name="Edit"> Edit</a>
+				{% endif %}
+					{% endfor %}
+				{% elif ShareZone.has_CommunityShed == False %}
+				<td> No Community Shed </td>
+					{% for group in user.groups.all %}
+						{% if group.name == 'admin_user' %}
+					<td> <button class="btn btn-default"> <a href='/cshed/'> Create a Community Shed </button> <td> 
+						{% endif %}
+					{% endfor %}
+	
+         
+	
+				{% endif %} 
+				
+            </tr>
+            	
+        </tbody>
+    </table>
+	</div>
+	
+	<table class="table table-condensed">
+	<thead>
+		<tr> 
+	<th> Administrators </th>
+	</tr>
+	</thead>
+	<tbody>
+	{% for object in users %}
+	
+			{% if object.is_admin == True%}
+				<tr> <td> {{ object.user.username }} </td> </tr>
+				{% endif %}
+				 
+		{% endfor %}		
+	</tbody>
+	</table>
+	
+
+
+
+	
+
+	</div>
+    </div>
+</div>
+</div>
+</div>
+<!-- ShareZone List - End -->
+</div>
+</div>
+{% endblock %}

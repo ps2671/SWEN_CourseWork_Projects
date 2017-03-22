@@ -1,0 +1,109 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- View Registered Tool - Start -->
+{% if alert == True %}
+ <!-- Modal 1: Start-->
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tool Managment</h4>
+        </div>
+        <div class="modal-body">
+          <p>{{succ_msg}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ <!-- Modal 1 : End-->
+{% endif %}
+
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10"> 
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Your Tools</b>
+            </div>
+        </div>
+        <div class="panel-body">
+
+            <!-- message if no tool were added to user account-->
+{% if toolsRegister|length == 0%}
+            <div class="center-align" style="color: #000000;">
+<p> You have no registered tools. </p>
+                </div>
+{% else %}
+<div class="container-fluid">
+<table class="table table-condensed">
+  <thead>
+      <tr>
+            <th>Tool Name</th>
+            <th>Tool Address</th>
+            <th>Tool Category</th>
+            <th>Tool Image</th>
+            <th>Availability</th>
+            <th>Edit</th>
+            <th>Status</th>
+        </tr>
+        <tbody>
+    {% for object in toolsRegister %}
+        {% if object.userProfile_id == userProfileId %}
+        {% with b=1 %}
+        {% endwith %}
+            <tr>
+                <td>{{object.nameOfTheTool}}</td>
+                <td><p>{{object.addressOfTheTool}}</p></td>
+                <td><p>{{object.categoryOfTheTool}}</p></td>
+                <td><img src="{{object.image.url}}" class='img-res' width="100"/></td>
+                <td><p>{{object.statusOfTheTool}}</p></td>
+                <!--make activate button appear if deactivated and vice versa rather than one activate/deactivate button-->
+                {% if cannot_update_tool %}
+                <td><input class="btn btn-default" type="submit" value="Edit" name="updateTool" disabled>
+                    <input type="hidden" value={{ object.id }} name="IDForTheTool"/>
+                    <a href="#" data-toggle="tooltip" title="Cannot Update Tool as its being borrowed or has pending request."> <span class="glyphicon glyphicon-info-sign"></span></a>
+                </td>
+                <td><input class="btn btn-default" type="submit" value="Activate/Deactivate" name="changeActivation" disabled/>
+                            <input type="hidden" value={{ object.id }} name="IDForTheTool"/>
+                            <a href="#" data-toggle="tooltip" title="Cannot Update Tool as its being borrowed or has pending request."> <span class="glyphicon glyphicon-info-sign"></span></a>
+                </td>
+                {% else %}
+                <form method="post" action="/manageMyTools/" name="updateTool">{% csrf_token %}
+                <td><input class="btn btn-default" type="submit" value="Edit" name="updateTool">
+                    <input type="hidden" value={{ object.id }} name="IDForTheTool"/>
+                </td>
+                 </form>
+                 <form method="post" action="/manageMyTools/">
+                            {% csrf_token %}
+                        <td><input class="btn btn-default" type="submit" value="Activate/Deactivate" name="changeActivation"/>
+                            <input type="hidden" value={{ object.id }} name="IDForTheTool"/>
+                        </td>
+                </form>
+                 {% endif %}
+                
+            </tr>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+</tbody>
+</table>
+</div>
+</div>
+    </div>
+</div>
+</div>
+</div>
+<!-- View Registered Tool - End -->
+</div>
+</div>
+{% endblock %}

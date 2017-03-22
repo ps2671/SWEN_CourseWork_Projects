@@ -1,0 +1,59 @@
+<!-- View all the papers which are assigned for review. -->
+
+<!-- view all the review requests for the submissions from all PCMs. -->
+
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>View Assigned Papers</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            {% if requested_doc_submissions %}
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Document Title</th>
+                            <th>Doc Preview</th>
+                            <th class="text-center">Review</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reqDoc in requested_doc_submissions %}
+                            <form action="/viewAssignedPapers/" method="post">
+                                {% csrf_token %}
+                                <tr>
+                                    <td>{{reqDoc.document.doc_title}}</td>
+                                    <td>
+                                        <input class="btn btn-default" type="submit" value="View" name="previewDoc"/>
+                                        <input type="hidden" value={{ reqDoc.document.id }} name="document"/>
+                                    </td>
+                                    {% if reqDoc.document.id in user_doc_ids %}
+                                        <td class="text-center">
+                                            <input class="btn btn-default" type="submit" value="View Review" name="viewReview"/>
+                                            <input type="hidden" value={{ reqDoc.id }} name="req_id"/>
+                                            <input class="btn btn-info" type="submit" value="Edit Review" name="editReview"/>
+                                            <input type="hidden" value={{ reqDoc.id }} name="req_id"/>
+                                        </td>
+                                    {% else %}
+                                        <td class="text-center">
+                                            <input class="btn btn-info" type="submit" value="Add Review" name="addReview"/>
+                                            <input type="hidden" value={{ reqDoc.id }} name="req_id"/>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            </form>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="text-center">
+                    <span>No requests to view.</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

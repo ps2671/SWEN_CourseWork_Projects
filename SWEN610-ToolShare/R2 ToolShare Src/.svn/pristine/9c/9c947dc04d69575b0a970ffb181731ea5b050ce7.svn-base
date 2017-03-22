@@ -1,0 +1,53 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- Update Users in your sharezone - Start -->
+
+
+<!-- Vertical Menu Bar - End  -->
+
+<!-- Profile Form - Start -->
+
+<!-- Horizontal header Menu Bar - End  -->
+
+
+
+
+<!-- Profile Form - Start -->
+
+
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10"> 
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Update User</b>
+            </div>
+        </div>
+		
+         <div class="panel-body">
+            <form method="post" action=".">{% csrf_token %}
+                      <table class="center-align-table table-with-headers">
+            {{ form.as_table }}
+        </table>
+
+
+
+        <div class="center-align">
+              <button type="submit"  class="btn btn-primary" name="Save">Save</button>
+			  <button type="reset"  class="btn btn-primary" name="Reset">Reset</button>
+        </div>
+            </form>
+        </div>
+    </div>
+	
+</div>
+</div>
+</div>
+<!-- Update Users in your sharezone - End -->
+</div>
+</div>
+{% endblock %}
+

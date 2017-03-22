@@ -1,0 +1,88 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- ShareZone Users - Start -->
+
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10"> 
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Users in your Share Zone</b>
+            </div>
+        </div>
+        <div class="panel-body"> 
+{% if ShZ|length == 1 %}
+<div class="center-align" style="color: #000000;">
+<p>Sorry. There are no users in your Sharezone </p>
+</div>
+{% else %}
+  <div class="container-fluid">
+	<table class="table table-condensed">
+    <thead>
+      <tr>
+	  <th>  Username </th>
+	 
+			<th> First Name </th>
+			<th> Last Name </th>
+
+			<th> Update </th>
+			<th> Activate/Deactivate </th> 
+			<th> Status </th>  
+			 </tr>
+    </thead>
+     <tbody>
+	{% for object in ShZ %}
+
+		{% if object.user.username != user.username and object.request == True %}
+		
+			<tr> 
+        <form method="post" action="/ManageUsers/" enctype="multipart/form-data">{% csrf_token %}  
+		    <p>{% if form.errors %}</p>
+			<p style="text-align: left;">&nbsp;</p>
+			<p style="text-align: center;"><span style="color: #ff0000;">*There are some empty fields. Please try again.</span></p>
+			<p> {% endif %} </p>
+			<td> {{ object.user.username }} </td>	
+			<td> {{ object.first_Name }}  </td>
+			<td> {{ object.last_Name }}  </td>
+		
+			 <td> <button class="btn btn-default"> <a href="{% url 'UpdateUser' object.user.id %}">  Update  </a> </button>
+             <td> 
+			 {% if object.user.is_active = True %}
+			 <input class="btn btn-default" type="submit" value="Deactivate" name="Deactivate"/> 
+				  <input type="hidden" value={{ object.user.id }} name="RequestID"/>
+			{% elif object.user.is_active = False %}
+			 <input class="btn btn-default" type="submit" value="Activate" name="Activate"/> 
+				  <input type="hidden" value={{ object.user.id }} name="RequestID"/>
+			{% endif %}
+			</td> 
+			<td> 
+			  {% if object.is_admin == False %}
+			 <input class="btn btn-default" type="submit" value="Make Admin" name="makeAdmin"/> 
+			 <input type="hidden" value={{ object.user.id }} name="RequestID"/>
+			{% elif object.is_admin == True %}
+			 <p>Is Admin </p>
+			{% endif %} 
+			</td> 
+         
+		</form>		 
+		</tr>
+		
+		{% endif %}
+	
+	{% endfor %}
+</tbody>
+	</table>
+  </div>
+{% endif %}
+	  </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- ShareZone Users - End -->
+</div>
+</div>
+{% endblock %}

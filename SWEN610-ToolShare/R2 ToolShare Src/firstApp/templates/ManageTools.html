@@ -1,0 +1,76 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- ShareZone Users - Start -->
+
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10"> 
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Tools in your ShareZone</b>
+            </div>
+        </div>
+        <div class="panel-body"> 
+{% if tools|length == 0 %}
+<div class="center-align" style="color: #000000;">
+<p>Sorry. There are no tools in your Shed </p>
+</div>
+{% else %}
+  <div class="container-fluid">
+	<table class="table table-condensed">
+    <thead>
+      <tr>
+			<th>  Tool  </th>
+			<th> Address of the Tool  </th>
+			<th> Status of the Tool  </th>
+			<th> Category of the Tool  </th>
+			<th> Condition of the Tool </th>
+			<th> Tool Image </th> 
+			<th> Tool Description </th>
+			<th> Activate/Deactivate </th>
+			 </tr>
+    </thead>
+     <tbody>
+	{% for tool in tools %}
+
+		<tr> 
+        <form method="post" action="/ManageTools/" enctype="multipart/form-data">{% csrf_token %}  
+		    <p>{% if form.errors %}</p>
+			<p style="text-align: left;">&nbsp;</p>
+			<p style="text-align: center;"><span style="color: #ff0000;">*There are some empty fields. Please try again.</span></p>
+			<p> {% endif %} </p>
+			<td> {{ tool.nameOfTheTool }} </td>	
+			<td> {{ tool.addressOfTheTool }}   </td>
+			<td> {{ tool.statusOfTheTool }}  </td>
+			<td> {{ tool.categoryOfTheTool }}  </td>
+			<td> {{ tool.conditionOfTheTool }} </td>
+			<td><img src="{{tool.image.url}}" class='img-res' width="100"/></td>
+			<td> {{ tool.toolDescription }}   </td>
+			<td>  <input class="btn btn-default" type="submit" value="Activate/Deactivate" name="changeActivation"/>
+                 <input type="hidden" value={{ tool.id }} name="IDForTheTool"/> </td>
+			<td> <button class="btn btn-default"> <a href="{% url 'UpdateTool' tool.id %}">  Update  </a> </button>
+		
+		
+         
+		</form>		 
+		</tr>
+		
+
+	
+	{% endfor %}
+</tbody>
+	</table>
+  </div>
+{% endif %}
+	  </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- ShareZone Users - End -->
+</div>
+</div>
+{% endblock %}

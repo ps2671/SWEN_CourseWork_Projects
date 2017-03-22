@@ -1,0 +1,129 @@
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.center-align {
+    text-align: center;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.left-align {
+    text-align: left;
+}
+
+.center-align-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center-align-table td {
+    padding: 5px;
+}
+
+.table-with-headers th {
+    text-align: right;
+    padding: 5px;
+}
+
+.table-with-headers td {
+    text-align: left;
+    padding: 5px;
+}
+
+.button-below-table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.link-below-table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.home-header {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.login-header {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.login-failed {
+    color: #000000;
+}
+
+.profile-header {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.registration-header {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.registration-successful-header {
+    color: #000000;
+    background-color: #ffffff;
+}
+.graph {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #aeaeae;
+    background-color: #eaeaea;
+}
+.bar {
+    width: 8px;
+    margin: 1px;
+    display: inline-block;
+    position: relative;
+    background-color: #aeaeae;
+    vertical-align: baseline;
+}

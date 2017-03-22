@@ -1,0 +1,71 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- Borrow Tool - Start -->
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10">
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Borrow Tool</b>
+            </div>
+        </div>
+        <div class="panel-body">
+<div class="container-fluid">
+  {% if invalid_form %}
+<div align="center">
+<span style="color:red">* Please enter the mandatory fields.</span>
+</div>
+{% endif %}
+    <form method="post" action="/borrowTools/">
+                    <table class="table table-condensed">
+                      <thead>
+                        <tr>
+                            <th> Image</th>
+                             <th> Name</th>
+                           <th><span style="color:red">*</span>From Date</th>
+                            <th><span style="color:red">*</span>To Date</th> 
+                             <th>Request</th>
+                          </tr>
+                           </thead>
+                        <tbody>
+                          <tr>
+                             <td>
+                                {% if toolsRegister_temp.image %}
+                                <img src="{{toolsRegister_temp.image.url}}" class='img-res' height="100" width="100"/>
+                                {% endif %}
+                            </td>
+                            <!-- TODO - Display tool details. -->
+                            <td>{{toolsRegister_temp.nameOfTheTool}}</td>
+                             
+                                {% csrf_token %}
+                                <td>{{ form.fromDate }}</td>
+                                <td>{{ form.toDate }}</td>
+
+
+                                {% if cannot_borrow %}
+                                <td><a href="#" data-toggle="tooltip" title="Tool is Currently Borrowed. Please choose future date for resevation."> <span class="glyphicon glyphicon-info-sign"></span></a><input class="btn btn-primary" type="submit" value="Borrow" name="CheckAvail"/>
+                                    <input type="hidden" value={{ toolsRegister_temp.id }} name="IDForTheTool"/>
+                                </td>
+                                {% else %}
+                                <td><input class="btn btn-primary" type="submit" value="Borrow" name="requestToBorrow"/>
+                                    <input type="hidden" value={{ toolsRegister_temp.id }} name="IDForTheTool"/>
+                                </td>
+                                {% endif %}
+                            
+                        </tr>
+                      </tbody>
+                    </table>
+                    </form> 
+                     </div>
+ </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- Borrow Tool - End -->
+</div>
+</div>
+{% endblock %}

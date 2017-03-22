@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <br/>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/" style="color: #428bca;">
+                        <span class="glyphicon glyphicon-home" style="color: #428bca;"></span>
+                        SAM2017
+                    </a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/" style="color: #428bca;">
+                            <span class="glyphicon glyphicon-log-in" style="color: #428bca;"></span>
+                            Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        {% block main_panel_template %}
+        {% endblock %}
+    </div>
+{% endblock %}

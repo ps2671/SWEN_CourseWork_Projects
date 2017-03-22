@@ -1,0 +1,82 @@
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+{% if perm_can_submit_paper  %}
+    {% if is_within_deadline %}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="text-center">
+                    <b>Make a Submission</b>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="well">
+                                <table class="center-align-table table-with-headers">
+                                    {{ form.as_table }}
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="well">
+                                <div class="row doc-contributor-details-header text-center">
+                                    <strong>Contributor Details</strong>
+                                </div>
+                                <div class="row">
+                                    <table class="center-align-table table-with-headers">
+                                        {{ link_formset.management_form }}
+                                        {% for link_form in link_formset %}
+                                        <div class="link-formset">
+                                            {{ link_form.contributor_name }}
+                                            {% if link_form.contributor_name.errors %}
+                                            {% for error in link_form.contributor_name.errors %}
+                                            {{ error|escape }}
+                                            {% endfor %}
+                                            {% endif %}
+
+                                            {{ link_form.contributor_email }}
+                                            {% if link_form.contributor_email.errors %}
+                                            {% for error in link_form.contributor_email.errors %}
+                                            {{ error|escape }}
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center row">
+                        <input type="submit" value="Submit"/>
+                    </div>
+                    <div class="text-center row margin-space">
+                        <a href="/home/">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% else %}
+    The deadline to submit the paper has passed.
+    {% endif %}
+{% else %}
+Please login in as an author to submit your paper
+{% endif %}
+
+{% block head %}
+{% load staticfiles %}
+<!-- Include formset plugin - including jQuery dependency -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'firstApp/jquery.formset.js' %}"></script>
+<script>
+            $('.link-formset').formset({
+                addText: 'Add Another Author',
+                deleteText: 'Remove Author'
+            });
+
+</script>
+{% endblock %}
+{% endblock %}

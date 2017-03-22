@@ -1,0 +1,124 @@
+{% extends "base.html"%}
+
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+       <div class="panel panel-primary" style="border-color: #FFFFFF;">
+        <br>
+<!-- Horizontal Header Menu Bar - Start  -->
+ <div class="container-fluid">
+        <nav class="navbar navbar-default" style="background-color: #34DDDD;">
+            <div class="container-fluid" style="background-color: #F34DDDD;">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" style="color: #000000;">
+                        <span class="glyphicon glyphicon-home" style="color: #000000;"></span>
+                        ToolShare
+                    </a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/" style="color: #000000;">
+                            <span class="glyphicon glyphicon-log-in" style="color: #000000;"></span>
+                            Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+</div>
+<!-- Horizontal Header Menu Bar - End  -->
+
+<!-- Registration Form - Start -->
+<div class="container-fluid">
+    <div class="center-block">
+        <div class="panel panel-primary" style="border-color: #34DDDD;">
+            <div class="panel-heading" style="background-color: #34DDDD;">
+                <div class="center-align">
+                    <b>Registration</b>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form method="post" action=".">{% csrf_token %}
+                 <div class="container-fluid">
+    <table  class="center-align-table table-with-headers">
+     <tbody>
+   <!--  <p></p>
+    <p>{% if form.errors %}</p>
+    <p style="text-align: left;">&nbsp;</p>
+    <p style="text-align: center;"><span style="color: #ff0000;">*There are some empty fields. Please try again.</span></p>
+    <p>{% endif %}</p>
+    <p></p> -->
+    <tr>
+    <th><label for="nameOfTheTool">Username</label></th>
+    <td>{{ form.username }}</td>
+    <td><span style="color: #ff0000;">{{ form.username.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="addressOfTheTool">Password</label></th>
+    <td>{{ form.password1 }}</td>
+    <td><span style="color:#ff0000;">{{form.password1.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="image">Confirm Password</label></th>
+    <td>{{ form.password2 }}</td>
+    <td><span style="color:#ff0000;">{{form.password2.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="statusOfTheTool">Email Address</label></th>
+    <td>{{ form.email }}</td>
+    <td><span style="color: #ff0000;">{{ form.email.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="categoryOfTheTool">First Name</label></th>
+    <td>{{ form.first_Name }}</td>
+    <td><span style="color:#ff0000;">{{form.first_Name.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="conditionOfTheTool">Last Name</label></th>
+    <td>{{ form.last_Name }}</td>
+    <td><span style="color:#ff0000;">{{form.last_Name.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="conditionOfTheTool">Address</label></th>
+    <td>{{ form.address }}</td>
+    <td><span style="color:#ff0000;">{{form.address.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="conditionOfTheTool">ZipCode</label></th>
+    <td>{{ form.zipCode }}</td>
+    <td><span style="color:#ff0000;">{{form.zipCode.errors}}</span></td>
+
+</tr>
+<tr>
+    <th><label for="conditionOfTheTool">PickUp Arrangments</label></th>
+    <td>{{ form.pickupArrangements }}</td>
+    <td><span style="color:#ff0000;">{{form.pickupArrangements.errors}}</span></td>
+</tr>
+<tr>
+
+    <th><label for="descriptionOfTheTool"><a href="#" data-toggle="tooltip" title="You must be 13 years old to register."> <span class="glyphicon glyphicon-info-sign"></span></a>BirthDate</label></th>
+    <td>{{form.date}}</td>
+    <td><span style="color: #ff0000;">{{ form.date.errors}}</span></td>
+</tr>
+    </tbody>
+</table>
+</div>
+                    <div class="center-align">
+                        <!-- <input class="button-below-table" type="submit" value="Register" /> -->
+                         <button class="btn btn-primary" type="submit"  class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Registration Form - End -->
+
+    </div>
+</div>
+{% endblock %}

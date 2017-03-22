@@ -1,0 +1,83 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- Add Tool form - Start -->
+
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10"> 
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Add New Tool</b>
+            </div>
+        </div>
+        <div class="panel-body">
+
+<form method="post" action="/addNewTool/" enctype="multipart/form-data">{% csrf_token %}
+     <div class="container-fluid">
+    <table  class="center-align-table" border="0">
+    <tbody>
+    <p></p>
+    <p>{% if form.errors %}</p>
+    <p style="text-align: left;">&nbsp;</p>
+    <p style="text-align: center;"><span style="color: #ff0000;">*There are some empty fields. Please try again.</span></p>
+    <p>{% endif %}</p>
+    <p></p>
+    <tr>
+    <th><label for="nameOfTheTool">Name</label></th>
+    <td>{{ form.nameOfTheTool }}</td>
+        <td><span style="color:#ff0000">{{form.nameOfTheTool.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="addressOfTheTool">Address</label></th>
+    {% if Sharezone.has_CommunityShed == True %}
+    <td>{{ form.addressOfTheTool }}</td>
+    <td><span style="color:#ff0000">{{form.addressOfTheTool.errors}}</span></td>
+    {% else %}
+    <td>Home<a href="#" data-toggle="tooltip" title="No Community Shed Exists."> <span class="glyphicon glyphicon-info-sign"></span></a></td>
+    {% endif %}
+</tr>
+<tr>
+    <th><a href="#" data-toggle="tooltip" title="Image size should be less than 2MB."> <span class="glyphicon glyphicon-info-sign"></span></a><label for="image">Image</label></th>
+    <td>{{ form.image }}</td>
+    <td><span style="color:#ff0000">{{form.image.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="statusOfTheTool">Status</label></th>
+    <td>{{ form.statusOfTheTool }}</td>
+    <td><span style="color:#ff0000">{{form.statusOfTheTool.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="categoryOfTheTool">Category</label></th>
+    <td>{{ form.categoryOfTheTool }}</td>
+    <td><span style="color:#ff0000">{{form.categoryOfTheTool.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="conditionOfTheTool">Condition</label></th>
+    <td>{{ form.conditionOfTheTool }}</td>
+    <td><span style="color:#ff0000">{{form.conditionOfTheTool.errors}}</span></td>
+</tr>
+<tr>
+    <th><label for="descriptionOfTheTool">Description</label></th>
+    <td>{{ form.toolDescription }}</td>
+    <td><span style="color:#ff0000">{{form.toolDescription.errors}}</span></td>
+</tr>
+    </tbody>
+</table>
+</div>
+  <div class="center-align">
+             <input class="btn btn-primary" type="submit" value="Register the tool" name="submitTheTool"/></p>
+  </div>
+</form>
+</div>
+ </div>
+</div>
+</div>
+</div>
+
+<!-- Add Tool form - End -->
+</div>
+</div>
+{% endblock %}

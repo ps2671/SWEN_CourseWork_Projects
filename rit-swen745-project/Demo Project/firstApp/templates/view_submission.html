@@ -1,0 +1,61 @@
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>View Submissions</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            {% if submitted_docs %}
+                <table class="table">
+                    <tr>
+                        <th>Title</th>
+                        <th>Submitter Email</th>
+                        <th>Contributor Emails</th>
+                        <th>Version</th>
+                        <th>Format</th>
+                        <th>Preview</th>
+                        <th>Status</th>
+                        <th>Final Rating</th>
+                    </tr>
+                    {% for doc,contr_list in doc_submit_dict.items %}
+                        <tr>
+                            <td>{{doc.doc_title}}</td>
+                            <td>{{doc.submitter_email}}</td>
+                            {% if contr_list %}
+                            <td>
+                            {% for contr in contr_list %}
+                            {{contr.contributor_email}}
+                            <br>
+                            {% endfor %}
+                            </td>
+                            {% endif %}
+                            <td>{{doc.doc_version}}</td>
+                            <td>{{doc.doc_format}}</td>
+                             <td>
+                                <a href="{% url 'viewPDF' doc.id %}" width="100" target="_blank"/>View</a>
+                            </td>
+                            <td>{{doc.status}}</td>
+                            {% if doc.finalRating %}
+                            <td>
+                                <b>{{doc.finalRating}}</b>
+                            </td>
+                            {% else %}
+                            <td>
+                                <b>Pending</b>
+                            </td>
+                            {% endif %}
+                           
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div class="text-center">
+                    <span>No submissions to view.</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

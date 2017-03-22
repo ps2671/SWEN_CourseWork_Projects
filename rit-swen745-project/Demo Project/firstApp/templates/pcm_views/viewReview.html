@@ -1,0 +1,39 @@
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>View Review</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form method="post" action=".">
+                <table class="table table-condensed">
+                    <tbody>
+                        <tr>
+                            <th>Document ID</th>
+                            <td>{{doc_ID}}</td>
+                        </tr>
+                        <tr>
+                            <th>Document Title</th>
+                            <td>{{doc_title}}</td>
+                        </tr>
+                        <tr>
+                            <th>Paper Summary</th>
+                            <td>{{paperSummary}}</td>
+                        </tr>
+                        <tr>
+                            <th>Review</th>
+                            <td>{{reviewReasons}}</td>
+                        </tr>
+                        <tr>
+                            <th>Rating</th>
+                            <td>{{rating}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}

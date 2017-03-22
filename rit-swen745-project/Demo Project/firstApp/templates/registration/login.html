@@ -1,0 +1,42 @@
+{% extends "logged_out_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>Login</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            {% if form.errors %}
+                <p class="text-center">
+                    <span class="login-failed">* Username/Password Mismatch</span>
+                </p>
+            {% endif %}
+            <form action="." method="post">
+                {% csrf_token %}
+                <table class="center-align-table" border="0">
+                    <tr>
+                        <th>
+                            <label for="id_username">Enter Username</label>
+                        </th>
+                        <td>{{ form.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="id_password">Enter Password</label>
+                        </th>
+                        <td>{{ form.password }}</td>
+                    </tr>
+                </table>
+                <div class="text-center margin-space">
+                    <input class="btn btn-primary" type="submit" value="Login" />
+                    <input name="next" type="hidden" value="/home" />
+                </div>
+                <div class="text-center margin-space">
+                    <a href="/register">Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

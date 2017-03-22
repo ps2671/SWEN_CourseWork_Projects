@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+<html>
+    <head>
+        <title>ToolShare | making your life easy</title>
+		 <link rel="stylesheet" type="text/css" href="{% static 'firstApp/style.css' %}" />
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--the start for date picker script-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--the next code is for datepicke in registration page-->
+<script>
+  $( function() {
+    $( "#id_date" ).datepicker({
+
+        changeMonth: true,
+      changeYear: true,
+      showOn: "button",
+      buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+      buttonImageOnly: true,
+      buttonText: "Select date",
+
+      <!--minDate: new date(2003,1-1,1),-->
+    });
+      $( "#id_date" ).datepicker( "option", "yearRange", "1940:2016" );
+  } );
+  </script>
+
+        <!--the next code is for datepicke in update userprofile page-->
+       <script>
+  $( function() {
+    $( "#id_date1" ).datepicker({
+
+        changeMonth: true,
+      changeYear: true,
+      showOn: "button",
+      buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+      buttonImageOnly: true,
+      buttonText: "Select date",
+
+      <!--minDate: new date(2003,1-1,1),-->
+    });
+      $( "#id_date1" ).datepicker( "option", "yearRange", "1940:2016" );
+  } );
+  </script>
+
+      <!--date picker code ended-->
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#myModal').modal('show');
+    });
+</script>
+
+        <!-- date picker for borrowing tool-->
+<script>
+
+  $( function() {
+    var dateFormat = "mm/dd/yy",
+      from = $( "#id_fromDate" )
+
+       .datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 2,
+            minDate: 0,
+          })
+
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#id_toDate" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 2,
+          minDate: 0,
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+
+      return date;
+    }
+  } );
+  </script>
+
+
+
+        {{ form.media }}  <!-- to display media in web page like datepicker-->
+    </head>
+     <body>
+
+        {% block title %}{% endblock %}
+        {% block content %}{% endblock %}
+
+    </body>
+</html>

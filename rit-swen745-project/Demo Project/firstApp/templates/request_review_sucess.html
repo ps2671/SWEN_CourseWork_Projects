@@ -1,0 +1,13 @@
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                {% if req_review_msg == True %}
+                    <b>Your request sent successfully.</b>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

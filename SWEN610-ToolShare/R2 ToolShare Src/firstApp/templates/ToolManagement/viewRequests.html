@@ -1,0 +1,87 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- View Borrow requests - Start -->
+
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10"> 
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Borrow requests for your tools</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-condensed">
+{% if flag %}
+{% for object in toolsRegister %}
+
+{% for object1 in toolRequest %}
+
+    {% if object1.requestStatus == 0 and object1.requester_id != user.username and object.id == object1.toolId_id %}
+                <thead>
+        <tr>
+          <th>Tool Image</th>
+          <th>Tool Name</th>
+           <th>Accept Request</th>
+            <th>Reject Request</th>
+            <th><span style="color:red">*</span>Rejection Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <input type="hidden" id="name_OfTheTool" name="variable" value="{{ object.nameOfTheTool }}">
+        <input type="hidden" id="address_OfTheTool" name="variable" value="{{ object.addressOfTheTool }}">
+        <input type="hidden" id="status_OfTheTool" name="variable" value="{{ object.statusOfTheTool }}">
+        <input type="hidden" id="category_OfTheTool" name="variable" value="{{ object.categoryOfTheTool }}">
+        <input type="hidden" id="image_Address" name="variable" value="{{ object.image }}">
+        <input type="hidden" id="requester_id" name="variable" value="{{ object.requester_id }}">
+            <tr>
+                <td>
+                    {% if object.image %}
+                        <img src="{{object.image.url}}" class='img-res' height="100" width="100"/>
+                    {% endif %}
+                </td>
+                <td><p onclick="requestedToolsDetail()"><u>{{object.nameOfTheTool}}</u></p></td>
+
+                <form method="post" action="/myTools/requestedTool/">{% csrf_token %}
+                        <td><input class="btn btn-success" type="submit" value="Accept" name="acceptRequest"/>
+                            <input type="hidden" value={{ object1.id }} name="RequestID"/>
+                        </td>
+                    </form>
+                <form method="post" action="/myTools/requestedTool/">{% csrf_token %}
+                        <td><input class="btn btn-warning" type="submit" value="Reject" name="rejectRequest"/>
+                            <input type="hidden" value={{ object1.id }} name="RequestID"/>
+                        </td>
+                <td> {{ form.rejectionReason }}</td>
+                </form>
+            </tr>
+        {% endif %}
+{% endfor %}
+{% endfor %}
+              {% else %}
+                    <!-- message if no tool were requested by user to tool owner -->
+                    <div class="center-align" style="color: #000000;">
+<p> No requests have been made for your tools. </p>
+            </div>
+        {% endif %}
+
+          </tbody>
+   </table>
+
+
+
+
+<div class="container-fluid">
+
+ </div>
+</div>
+    </div>
+</div>
+</div>
+</div>
+       <!-- View Borrow requests - End -->
+</div>
+</div>
+{% endblock %}

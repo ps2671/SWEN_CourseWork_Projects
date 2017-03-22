@@ -1,0 +1,22 @@
+{% extends "logged_out_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="center-align">
+                <b>Registration</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form method="post" action=".">
+                {% csrf_token %}
+                <table class="center-align-table table-with-headers">
+                    {{ form.as_table }}
+                </table>
+                <div class="text-center">
+                    <input class="btn btn-primary margin-space" type="submit" value="Register" />
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

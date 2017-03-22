@@ -1,0 +1,78 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- Tool Return - Start -->
+
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10">
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Return Tools</b>
+            </div>
+        </div>
+        <div class="panel-body">
+{% if invalid_form %}
+<div align="center">
+<span style="color:red">* Please enter the mandatory fields.</span>
+</div>
+{% endif %}
+            {% if flag %}
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>Tool Image</th>
+                    <th>Tool Name</th>
+                    <th>Return Date</th>
+                    <th>Action</th>
+                    <th><span style="color:red">*</span>Comment</th>
+                    <th><span style="color:red">*</span>Rating(5:Best)</th>
+                </tr>
+                </thead>
+                {% for object1 in toolRequest %}
+                {% for object in toolsRegister %}
+                {% if object.id == object1.toolId_id and object1.requestStatus == 1%}
+                <tr>
+                    <td>
+                        {% if object.image %}
+                        <img src="{{object.image.url}}" class='img-res' height="100" width="100"/>
+                        {% endif %}
+                    </td>
+                    <td>{{object.nameOfTheTool}}</td>
+                    <td>{{object1.requestedToDate}}</td>
+                    <form method="post" action="/myTools/returnTools/">{% csrf_token %}
+                    <td>
+                        <input class="btn btn-success" type="submit" value="Return" name="retrunTool"/>
+                        <input type="hidden" value={{ object1.id }} name="RequestID"/>
+                    </td>
+                     <td> {{ form.note }}
+                        <br>
+                     <span style="color: #ff0000;">{{ form.note.errors}}</span></td>
+                        <td>{{ form.rating }}
+                            <br>
+                        <span style="color: #ff0000;">{{ form.rating.errors}}</span></td>
+                    </form>
+
+                </tr>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </table>
+            {% else %}
+            <div class="center-align" style="color: #000000;">
+                No tools to return
+            </div>
+            {% endif %}
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tool Return - End -->
+</div>
+</div>
+{% endblock %}

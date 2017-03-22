@@ -1,0 +1,63 @@
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+{% if is_within_deadline %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>View All Submissions</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            {% if all_doc_submissions %}
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Document Title</th>
+                            <!-- <th>Doc Preview</th> -->
+                            <th>Request to Review</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doc in all_doc_submissions %}
+                            <form action="/requestPaperToReview/" method="post">
+                                {% csrf_token %}
+                                <tr>
+                                    <td>{{doc.doc_title}}</td>
+                                    <!-- <td>
+                                        <input class="btn btn-primary" type="submit" value="View" name="previewDoc"/>
+                                        <input type="hidden" value={{ doc.id }} name="document"/>
+                                    </td> -->
+
+                                    <!-- TODO : if not already requested -->
+                                    {% if doc.id in requested_doc_submissions %}
+                                        <td>
+                                             <input class="btn btn-success" type="submit" value="Already Requested" name="acceptRequest" disabled/>
+                                        </td>
+                                    {% else %}
+                                        <td>
+                                            <input class="btn btn-success" type="submit" value="Request" name="acceptRequest"/>
+                                            <input type="hidden" value={{ doc.id }} name="document"/>
+                                        </td>
+                                    {% endif %}
+                                    <!-- TODO : else -->
+                                    <!--  <td>
+                                         <input class="btn btn-success" type="submit" value="Already Requested" name="acceptRequest" disabled/>
+                                    </td> -->
+                                </tr>
+                            </form>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+                <div class="text-center">
+                    <span>No Submissions to view.</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+The deadline to request papers for submission has passed.
+{% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+<!-- View Review Request Status Template : To see status of all the papers requested for review. -->
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>View Review Request Status</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="container-fluid">
+                {% if requested_doc_submissions %}
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Document Title</th>
+                                <th>Status</th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                            {% for doc in requested_doc_submissions %}
+                                <tr>
+                                    <td>{{doc.document.doc_title}}</td>
+                                    <td>{{doc.status}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="text-center">
+                        <span>No requests to view.</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

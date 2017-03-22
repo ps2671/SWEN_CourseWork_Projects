@@ -1,0 +1,49 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                 <span class="sr-only">Toggle navigation</span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+             </button>
+             <a class="navbar-brand" href="#" style="color:white">Infusion Pump Web App</a>
+            <!-- <span style="color:white"></span><p1> Infusion Pump Web App </p1><soan style="color:blue"></soan></a> -->
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                {% if user_type == 'Doctor' %}
+                <li {% if prescription_page %} class="active"{% endif %} ><a href="/user_profile/prescription/">Prescription</a></li>
+                <li {% if list_page %} class="active"{% endif %} ><a href="/user_profile/patient_list/">View All Patients</a></li>
+                {% elif user_type == 'Admin' %}<!-- 
+                <li {% if list_page %} class="active"{% endif %} ><a href="/user_profile/list/">Admin Console</a></li> -->
+                 <li {% if list_page %} class="active"{% endif %} ><a href="/user_profile/doctor_list/">Doctor List</a></li>
+                 <li {% if list_page %} class="active"{% endif %} ><a href="/user_profile/patient_list/">View All Patients</a></li>
+                {% elif user_type == 'Patient' %}
+                <li {% if list_page %} class="active"{% endif %} ><a href="/user_profile/doctor_list/">View All Doctors</a></li>
+                {% endif %}
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if login_page %}
+                <li><a href="/registration">Register Now</a></li>
+                {% elif registration_page %}
+                <li><a href="/">Have an account, Log in</a></li>
+                {% else %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user_type }}, {{ user_first_name }}  <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/user_profile/user_information">Manage Account</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/user_profile/logout">Logout</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

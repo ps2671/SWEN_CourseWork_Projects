@@ -1,0 +1,43 @@
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>Add Review</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form method="post" action="/addReview/">
+                {% csrf_token %}
+                <div class="container-fluid">
+                    <table class="table table-condensed">
+                        <tr>
+                            <th>Document Title</th>
+                            <td>{{document_title}}</td>
+                        </tr>
+                         <tr>
+                            <th>Document Id</th>
+                            <td>{{form.doc_id}}</td>
+                        </tr>
+                         <tr>
+                            <th>Paper Summary</th>
+                            <td>{{form.paper_summary}}</td>
+                        </tr>
+                         <tr>
+                            <th>Review</th>
+                            <td>{{form.review}}</td>
+                        </tr>
+                        <tr>
+                            <th>Rating</th>
+                            <td>{{form.rating}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-primary margin-space" type="submit" value="Save" />
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+
+{% endblock %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block content %} 
+<div class="container-fluid">
+       <div>
+        <br>
+<!-- Image Div - Start -->
+<div>
+        <div class="container-fluid">
+       <div class="container"  style="text-align:center;">
+<img src='../../static/firstApp/images/toolshare_logo.png' class="img-rounded" alt="Cinque Terre" width="50%" height="50%">
+</div>
+</div>
+</div>
+<!-- Image Div - End -->
+<br>
+<br>
+<!-- Login Form - Start -->
+<div class="container-fluid">
+   <div class="center-block" style="width:500px;">
+ <div class="panel panel-default" style="border-color: #34DDDD;">
+            <div class="panel-heading" style="background-color:#34DDDD">
+                <div class="center-align">
+                    <b>Login</b>
+                </div>
+            </div>
+            <div class="panel-body">
+                {% if form.errors %}
+                    <p class="center-align">
+                        <span class="login-failed">* Username/Password Mismatch</span>
+                    </p>
+                {% endif %}
+                <form action="." method="post">{% csrf_token %}
+                    <table class="center-align-table" border="0">
+                        <tr>
+                            <th>
+                                    <label for="id_username">Enter Username</label>
+                            </th>
+
+                            <td>{{ form.username }}</td>
+                            <td><span style="color:#ff0000;">{{form.username.errors}}</span></td>
+
+                        </tr>
+
+
+
+                        <tr>
+                            <th>
+                                <label for="id_password">Enter Password</label>
+                            </th>
+                            <td>{{ form.password }}</td>
+                            <td><span style="color:#ff0000;">{{form.password.errors}}</span></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <div class="center-align">
+                         <button type="submit"  class="btn btn-primary">Login</button>
+                         <input name="next" type="hidden" value="/home" />
+                    </div>
+                    <br>
+                    <div class="center-align">
+                        <a href="/register">Don't have an account? Sign up »</a>
+                    </div>
+                </form>
+            </div>
+
+ </div>
+</div>
+</div>
+<!-- Login Form - End -->
+</div>
+</div>
+{% endblock %}

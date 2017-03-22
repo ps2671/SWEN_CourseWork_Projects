@@ -1,0 +1,62 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- ShareZone Users - Start -->
+
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10"> 
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Users in your Share Zone</b>
+            </div>
+        </div>
+        <div class="panel-body"> 
+{% if Shz|length == 0 %}
+<div class="center-align" style="color: #000000;">
+<p>Sorry. There are no sharezones. </p>
+</div>
+{% else %}
+  <div class="container-fluid">
+	<table class="table table-condensed">
+    <thead>
+      <tr>
+	  <th>  Zip Code </th>
+	 
+			<th> Community Shed </th>
+			<th> Edit Shed </th>
+ 
+			 </tr>
+    </thead>
+     <tbody>
+	{% for object in Shz %}
+
+		
+			<tr> 
+      
+			<td> {{ object.zipCode }} </td>	
+			<td> {{ object.CommunityShedLocation }}  </td>
+			<td> <button class="btn btn-default"> <a href="{% url 'UpdateShed' object.id %}">  Edit  </a> </button> </td> 
+		
+			
+            
+         
+	</tr>
+		
+		
+	{% endfor %}
+</tbody>
+	</table>
+  </div>
+{% endif %}
+	  </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- ShareZone Users - End -->
+</div>
+</div>
+{% endblock %}

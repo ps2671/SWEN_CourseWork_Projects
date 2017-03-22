@@ -1,0 +1,53 @@
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>Deadlines</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form action="." method="post">
+                {% csrf_token %}
+                <div class="text-center margin-space">
+                    <input class="btn btn-success" type="submit" value="Save" name="saveDeadline"/>
+                </div>
+                <table class="table table-condensed">
+                    {{ deadline_formset.management_form }}
+                    <tr>
+                        <th>Deadline Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                    {% for deadline_form in deadline_formset %}
+                        {% for hidden in deadline_form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+                        <tr class="deadline-formset">
+                            <td>{{ deadline_form.type }}</td>
+                            <td>{{ deadline_form.from_date }}</td>
+                            <td>{{ deadline_form.to_date }}</td>
+                            {% if deadline_formset.can_delete %}
+                                <td>{{ deadline_form.DELETE }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </div>
+    </div>
+
+    {% block head %}
+        {% load staticfiles %}
+        <!-- Include formset plugin - including jQuery dependency -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static 'firstApp/jquery.formset.js' %}"></script>
+        <script>
+            $('.deadline-formset').formset({
+                addText: 'Add',
+                deleteText: 'Remove'
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

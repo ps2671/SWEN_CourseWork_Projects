@@ -1,0 +1,22 @@
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>Profile</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form method="post" action=".">
+                {% csrf_token %}
+                <table class="center-align-table table-with-headers">
+                    {{ form.as_table }}
+                </table>
+                <div class="text-center">
+                    <input class="btn btn-primary button-below-table" type="submit" value="Save" />
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

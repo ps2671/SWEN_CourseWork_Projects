@@ -1,0 +1,5 @@
+# Demo\ Project/db.sqlite3
+Demo\ Project/Demo/__pycache__/**
+Demo\ Project/firstApp/migrations/__pycache__/**
+!Demo\ Project/firstApp/migrations/__init__.py
+Demo\ Project/firstApp/__pycache__/**

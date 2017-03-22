@@ -1,0 +1,51 @@
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>Templates</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form action="." method="post">
+                {% csrf_token %}
+                <div class="text-center margin-space">
+                    <input class="btn btn-success" type="submit" value="Save" name="saveTemplate"/>
+                </div>
+                <table class="table table-condensed">
+                    {{ template_formset.management_form }}
+                    <tr>
+                        <th>Template Type</th>
+                        <th>Template Message</th>
+                    </tr>
+                    {% for templ_form in template_formset %}
+                        {% for hidden in templ_form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+                        <tr class="template-formset">
+                            <td>{{ templ_form.template_type }}</td>
+                            <td>{{ templ_form.message }}</td>
+                            {% if template_formset.can_delete %}
+                                <td>{{ templ_form.DELETE }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </div>
+    </div>
+
+    {% block head %}
+        {% load staticfiles %}
+        <!-- Include formset plugin - including jQuery dependency -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static 'firstApp/jquery.formset.js' %}"></script>
+        <script>
+            $('.template-formset').formset({
+                addText: 'Add',
+                deleteText: 'Remove'
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

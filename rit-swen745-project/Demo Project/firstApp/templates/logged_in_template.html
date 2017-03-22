@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% load notifications_tags %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <br/>
+        <div class="row">
+            <div class="col-md-9">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/home/" style="color: #428bca;">
+                                <span class="glyphicon glyphicon-home" style="color: #428bca;"></span>
+                                SAM2017
+                            </a>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #428bca;">
+                                    <span class="glyphicon glyphicon-user" style="color: #428bca;"></span>
+                                    Your Profile
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="/myProfile/">View Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="/updateProfile/">Update Profile</a>
+                                    </li>
+                                </ul>
+                            </li>
+{% if perm_can_submit_paper %}
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #428bca;">
+                                    <span class="glyphicon glyphicon-file" style="color: #428bca;"></span> Author
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/submitDoc/">Make a Submission</a></li>
+                                    <li><a href="/viewSubmission/">View Submissions</a></li>
+                                </ul>
+                            </li>
+{% endif %}
+{% if perm_can_review_doc %}
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #428bca;">
+                                    <span class="glyphicon glyphicon-file" style="color: #428bca;"></span> PCM
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/viewAllSubmissions/">View All Submissions</a></li>
+                                    <li><a href="/viewRevReqStatus/">View Review Request Status</a></li>
+                                    <li><a href="/viewAssignedPapers/">View Assigned Papers</a></li>
+                                </ul>
+                            </li>
+{% endif %}
+{% if perm_can_edit_rev_req %}
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #428bca;">
+                                    <span class="glyphicon glyphicon-file" style="color: #428bca;"></span> PCC
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/viewReviewRequests/">View Review Requests</a></li>
+                                     <li><a href="/assignPapersToReview/">Assign Papers To Review</a></li>
+                                     <li><a href="/provideFinalRating/">Provide Final Rating</a></li>
+                                     
+                                </ul>
+                            </li>
+{% endif %}
+{% if user.is_superuser %}
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #428bca;">
+                                    <span class="glyphicon glyphicon-file" style="color: #428bca;"></span> Admin
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/templates/">Templates</a></li>
+                                    <li><a href="/deadlines/">Deadlines</a></li>
+                                </ul>
+                            </li>
+{% endif %}
+                            <li>
+                                <a href="/logout/" style="color: #428bca;">
+                                    <span class="glyphicon glyphicon-log-out" style="color: #428bca;"></span>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                {% block main_panel_template %}
+                {% endblock %}
+            </div>
+            <div class="col-md-3">
+                <div class="well">
+                    <span class="nav-header">Notifications {% live_notify_badge classes="badge" %}</span>
+                    {% live_notify_list classes="nav nav-list" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{% static 'notifications/notify.js' %}"></script>
+    {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' fetch=20 refresh_period=5 %}
+{% endblock %}

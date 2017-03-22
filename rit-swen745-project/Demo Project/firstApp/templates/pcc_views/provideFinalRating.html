@@ -1,0 +1,123 @@
+<!-- - reviews and rating for that document for all 3 reviewers.
+
+if non-conflicating reviews :
+
+give final rating. -->
+
+{% extends "logged_in_template.html" %}
+
+{% block main_panel_template %}
+{% if is_within_deadline %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="text-center">
+                <b>View All Reviews</b>
+            </div>
+        </div>
+        <div class="panel-body">
+            {% if doc_tot_rev.items %}
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Document Title</th>
+                            <th>Reviewer 1 </th>
+                            <th>Reviewer 2 </th>
+                            <th>Reviewer 3 </th>
+                            <th>Final Rating </th>
+                            <th>Finalize </th>
+                            <th>Report Conflict </th>
+                          <!--  <th>Reviwer 2 Message</th>
+                            <th>Rating</th> 
+                            <th>Reviwer 3 </th>
+                           <th>Reviwer 3 Message</th> 
+                            <th>Rating</th> -->
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doc,reviewer_list in doc_tot_rev.items %}
+                            <form action="/provideFinalRating/" method="post">
+                                {% csrf_token %}
+                                <tr>
+                                    <td>
+                                    	{{doc.doc_title}}                                           
+                                    </td>
+                                
+                                {% if reviewer_list%}
+                                    {% for reviewer in reviewer_list %}
+                                
+                                    <td>
+                                    	<b>UserName:</b>
+                                    	{{reviewer.reviewer.username}}
+                                    	<br>
+                                   <!-- </td>
+                                    <td> -->
+                                    	<b>Rating:</b>
+                                    	{{reviewer.rating}}
+                                    	<br>
+                                    <!-- </td>
+                                
+                                    <td> -->
+                                    	<b>Reasons:</b>
+                                    	{{reviewer.reviewReasons}}
+                                    <!-- </td> -->
+                                </td>
+                                    {% endfor%}
+ 								{% else %}
+                                  <td><span style="color:red">Pending</span></td>
+                                  <td><span style="color:red">Pending</span></td>
+                                  <td><span style="color:red">Pending</span></td>                                {% endif %}
+                                {% if doc.finalRating %}
+                                	<td>
+                                		<b>{{doc.finalRating}}</b>
+                                	</td>
+
+                                	 <td>
+                                         <input class="btn btn-primary" type="submit" value="Save" name="saveRating" disabled/>
+                                         <input type="hidden" value={{ doc.id }} name="document_id"/>
+                                     </td>
+                                    <td>
+                                         <input class="btn btn-warning" type="submit" value="Report Conflict" name="reportConflict" disabled/>
+                                         <input type="hidden" value={{ doc.id }} name="document_id"/>
+                                     </td>
+                                {% else %}
+                                    <td>
+												<select name="rate_id" id="rate_id" size="5">
+													{% for rate in rating_choices %}
+													<option value="{{rate}}">{{ rate }}</option>
+													{% endfor %}
+												</select>
+                                    </td>
+                                
+                                    <td>
+                                         <input class="btn btn-primary" type="submit" value="Save" name="saveRating"/>
+                                         <input type="hidden" value={{ doc.id }} name="document_id"/>
+                                     </td>
+                                    <td>
+                                         <input class="btn btn-warning" type="submit" value="Report Conflict" name="reportConflict"/>
+                                         <input type="hidden" value={{ doc.id }} name="document_id"/>
+                                     </td>
+                                 {% endif %}
+                                </tr>
+                                
+                            </form>
+                        {% endfor%}
+                    </tbody>
+                </table>
+
+            {% else %}
+                <div class="text-center">
+                    <span>No Reviews to view.</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+The deadline to submit final ratings is not there.
+{% endif %}
+{% endblock %}
+
+
+else
+
+generate notification to recipients.

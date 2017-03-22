@@ -1,0 +1,83 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- Update Tool Information - Start -->
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10"> 
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Update Tool Information</b>
+            </div>
+        </div>
+        <div class="panel-body">
+
+<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
+     <div class="container-fluid">
+    <table class="center-align-table" border="0">
+    <tbody>
+    <p></p>
+    <p>{% if form.errors %}</p>
+    <p style="text-align: left;">&nbsp;</p>
+    <p style="text-align: center;"><span style="color: #ff0000;">*There are some empty fields. Please try again.</span></p>
+    <p>{% endif %}</p>
+    <p></p>
+    <tr>
+    <th><label for="nameOfTheTool">Name</label></th>
+    <td>{{ form.nameOfTheTool }}</td>
+</tr>
+<tr>
+    <th><label for="addressOfTheTool">Address</label></th>
+     {% if Sharezone.has_CommunityShed == True %}
+    <td>{{ form.addressOfTheTool }}</td>
+    {% else %}
+	<td>
+	<a href="#" data-toggle="tooltip" title="No Community Shed Exists."> <span class="glyphicon glyphicon-info-sign"></span></a>
+     Home </td>
+    {% endif %}
+</tr>
+<tr>
+   <th><label for="image">Image</label></th>
+     <!-- <td>{{ form.image }}</td>  --> 
+    <td><img src="{{tool_image_url}}" class='img-res' width="100"/>{{ form.image }}</td> 
+</tr>
+<tr>
+    <th><label for="statusOfTheTool">Status</label></th>
+    <td>{{ form.statusOfTheTool }}</td>
+</tr>
+<tr>
+    <th><label for="categoryOfTheTool">Category</label></th>
+    <td>{{ form.categoryOfTheTool }}</td>
+</tr>
+<tr>
+    <th><label for="conditionOfTheTool">Condition</label></th>
+    <td>{{ form.conditionOfTheTool }}</td>
+</tr>
+<tr>
+    <th><label for="descriptionOfTheTool">Description</label></th>
+    <td>{{ form.toolDescription }}</td>
+</tr>
+    </tbody>
+</table>
+</div>
+
+  <div class="center-align">
+             <button type="submit"  name ="Update" class="btn btn-primary">Save</button>
+			  <!--<button type="submit"  name ="Cancel" class="btn btn-primary">Cancel</button>-->
+                <!-- cancel button code-->
+<button type="reset"  class="btn btn-primary" name="Reset">Reset</button>
+
+</button>
+  </div>
+</form>
+</div>
+ </div>
+</div>
+</div>
+</div>
+<!-- Update Tool Information - End -->
+</div>
+</div>
+{% endblock %}

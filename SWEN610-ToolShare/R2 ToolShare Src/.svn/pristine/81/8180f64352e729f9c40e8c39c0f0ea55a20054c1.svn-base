@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="container-fluid">
+       <div class="container">
+
+<!-- Horizontal Header Menu Bar - Start  -->
+
+{% for group in user.groups.all %}
+      {% if group.name != 'system_admin' %}
+
+<nav class="navbar navbar-default" style="background-color: #34DDDD;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/home/" style="color: #000000;"><span class="glyphicon glyphicon-home" style="color: #000000;"></span> ToolShare</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000000;">Tool Managment
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/manageMyTools/">View Your Tools</a></li> 
+          <li><a href="/addNewTool/">Add a Tool</a></li>
+          <li><a href="/borrowTools/">Borrow a Tool</a></li>
+          <li><a href="/myTools/myRequest/">See Request Status</a></li> 
+          <li><a href="/myTools/requestedTool/">Approve Tool Requests</a></li> 
+           <li><a href="/myTools/returnTools/">Return Tools</a></li> 
+<li><a href="/myTools/otherAcceptedRequest/">See Approved Requests</a></li> 
+        </ul>
+      </li>
+ <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000000;">ShareZone
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/ShareZone/">View ShareZone</a></li>
+	
+	
+        </ul>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+     
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000000;">Your Account
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/myProfile">Update Profile</a></li>
+          <li><a href="/changePassword/">Change Password</a></li>
+        </ul>
+      </li>
+	  
+	  {% for group in user.groups.all %}
+      {% if group.name == 'admin_user' %}
+	  
+	   {% if notification == True and admin_notification == True %}
+    <li>
+        <a href="#myModal3" data-toggle="modal" data-target="#myModal3" style="color: #0000FF;"><span class="glyphicon glyphicon-bell" ></span><span class=" glyphicon glyphicon-alert"></span></a>
+
+      </li>
+    {% elif notification == True %}
+	
+	<li>
+        <a href="#myModal2" data-toggle="modal" data-target="#myModal2" style="color: #0000FF;"><span class="glyphicon glyphicon-bell" ></span><span class=" glyphicon glyphicon-alert"></span></a>
+
+      </li>
+	
+	{% elif admin_notification == True %}
+	
+	 <li>
+       <a href="#myModal4" data-toggle="modal" data-target="#myModal4" style="color: #0000FF;"><span class="glyphicon glyphicon-bell"></span><span class=" glyphicon glyphicon-alert"></span> </a>
+
+    </li>
+	
+	{% else %}
+    <li>
+       <a href="#myModal1" data-toggle="modal" data-target="#myModal1" style="color: #000000;"><span class="glyphicon glyphicon-bell"></span> </a>
+
+    </li>
+    {% endif %}
+	
+
+
+
+     {% elif group.name == 'basic_user' %}
+	 {% if notification == True %}
+    <li>
+        <a href="#myModal2" data-toggle="modal" data-target="#myModal2" style="color: #0000FF;"><span class="glyphicon glyphicon-bell" ></span><span class=" glyphicon glyphicon-alert"></span></a>
+
+      </li>
+    {% else %}
+    <li>
+       <a href="#myModal1" data-toggle="modal" data-target="#myModal1" style="color: #000000;"><span class="glyphicon glyphicon-bell"></span> </a>
+
+    </li>
+    {% endif %}
+	
+	{% endif %}
+	{% endfor %}
+
+      <li><a href="/logout/" style="color: #000000;"><span class="glyphicon glyphicon-log-out" style="color: #000000;"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<!-- Horizontal header Menu Bar - End  -->
+
+ <!-- Modal 1: Start-->
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Notification</h4>
+        </div>
+        <div class="modal-body">
+          <p>No new Notifications to view</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ <!-- Modal 1 : End-->
+
+  <!-- Modal 2: Start-->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Notification</h4>
+        </div>
+        <div class="modal-body">
+          <p>Notifications for your tools. Please go to tools section.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ <!-- Modal 2 : End-->
+ 
+   <!-- Modal 3: Start-->
+  <div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Notification</h4>
+        </div>
+        <div class="modal-body">
+          <p>Notifications for users in your Sharezone. Please go to Users Requests.</p>
+		  <p> Notifications for your tools. Please go to your Tools page. 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ <!-- Modal 4 : End-->
+ 
+    <!-- Modal 3: Start-->
+  <div class="modal fade" id="myModal4" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Notification</h4>
+        </div>
+        <div class="modal-body">
+          <p>Notifications for users in your Sharezone. Please go to Users Requests.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ <!-- Modal 4 : End-->
+
+<!-- Vertical Menu Bar - Start  -->
+
+
+<div class="col-sm-2">
+<div class="panel panel-primary" style="border-color: #34DDDD;">
+<div class="panel-body" style="background-color: #34DDDD;">
+  <ul class="nav nav-pills nav-stacked">
+<li><span style="color: #8B4513;"><b>MANAGE TOOLS</b></span></li>
+<li><a href="/manageMyTools/" style="color: #000000;">View Tools</a></li> 
+   <li><a href="/addNewTool/" style="color: #000000;"><span>Add Tools</span></a></li>
+          <li><a href="/borrowTools/" style="color: #000000;">Borrow Tools</a></li>
+          <li><a href="/myTools/requestedTool/" style="color: #000000;">Approve Tools</a></li> 
+           <li><a href="/myTools/returnTools/" style="color: #000000;">Return Tools</a></li> 
+
+<li><a href="/myTools/myRequests/" style="color: #000000;"> View Requests</a></li> 
+
+
+ <li><span style="color: #8B4513;"><b>SHAREZONE</b></span></li>
+    <li><a href="/ShareZone/" style="color: #000000;"> Your Share Zone</a></li>
+
+	 {% for group in user.groups.all %}
+      {% if group.name == 'admin_user' %}
+		<li><a href="/ShareZoneUsers/" style="color: #000000;"> Users Requests</a></li>
+		<li><a href="/ManageUsers/" style="color: #000000;"> Manage Users </a></li> 
+		<li><a href="/ManageTools/" style="color: #000000;"> Manage Tools </a></li> 
+    {% endif %}
+    {% endfor %}
+
+  </ul>
+
+</div>
+</div>
+{% endif %}
+{% endfor %}
+</div>
+{% for group in user.groups.all %}
+      {% if group.name == 'system_admin' %}
+	  
+	  <nav class="navbar navbar-default" style="background-color: #34DDDD;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/home/" style="color: #000000;"><span class="glyphicon glyphicon-home" style="color: #000000;"></span> ToolShare</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li>
+        <a  href="/ManageUsersAdmin/" style="color: #000000;">User Management </a>
+  
+      </li>
+	  <li>
+        <a  href="/ManageSharezone/" style="color: #000000;">Sharezone Management
+       </a>
+
+      </li>
+ <li>
+        <a  href="/ManageToolsAdmin/" style="color: #000000;">Tool Management 
+      </a>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+     
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #000000;">Your Account
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/myProfile/">View Profile</a></li>
+        </ul>
+      </li>
+
+
+     {% if notification == True %}
+    <li>
+        <a href="#myModal2" data-toggle="modal" data-target="#myModal2" style="color: #0000FF;"><span class="glyphicon glyphicon-bell" ></span><span class=" glyphicon glyphicon-alert"></span></a>
+
+      </li>
+    {% else %}
+    <li>
+       <a href="#myModal1" data-toggle="modal" data-target="#myModal1" style="color: #000000;"><span class="glyphicon glyphicon-bell"></span> </a>
+
+    </li>
+    {% endif %}
+
+      <li><a href="/logout/" style="color: #000000;"><span class="glyphicon glyphicon-log-out" style="color: #000000;"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<!-- Horizontal header Menu Bar - End  -->
+	  
+	  {% endif %}
+{% endfor %}
+    {% block main_panel_template %}
+        {% endblock %}
+<!-- Vertical Menu Bar - End  -->
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html"%}
+
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+       <div class="panel panel-primary" style="border-color: #FFFFFF;">
+        <br>
+<!-- Horizontal Header Menu Bar - Start  -->
+ <div class="container-fluid">
+        <nav class="navbar navbar-default" style="background-color: #34DDDD;">
+            <div class="container-fluid" style="background-color: #34DDDD;">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" style="color: #000000;">
+                        <span class="glyphicon glyphicon-home" style="color: #000000;"></span>
+                        ToolShare
+                    </a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/" style="color: #000000;">
+                            <span class="glyphicon glyphicon-log-in" style="color: #000000;"></span>
+                            Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+</div>
+<!-- Horizontal Header Menu Bar - End  -->
+
+<!-- Change Password Success View - Start -->
+<div class="panel-body">
+<div class="center-align">
+You successfully changed your password. You've to login again using new password.
+<br>
+<a href="/home">Login</a>
+</div>
+</div>
+<!-- Change Password Success View - End -->
+</div>
+</div>
+{% endblock %}

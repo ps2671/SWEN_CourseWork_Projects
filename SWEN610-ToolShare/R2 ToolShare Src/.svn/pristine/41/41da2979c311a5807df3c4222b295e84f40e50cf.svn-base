@@ -1,0 +1,65 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- View All Approved Requests - Start -->
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10"> 
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Approved Requests</b>
+            </div>
+        </div>
+        <div class="panel-body">
+                <!-- message if no tool requests approved by user -->
+    {% if toolRequest|length == 0%}
+            <div class="center-align" style="color: #000000;">
+<p> No tools have been requested. </p>
+            </div>
+{% else %}
+{% for object in toolsRegister %}
+{% if object.userProfile_id == userProfileId and object.borrowed == True %}
+<input type="hidden" id="name_OfTheTool" name="variable" value="{{ object.nameOfTheTool }}">
+<input type="hidden" id="address_OfTheTool" name="variable" value="{{ object.addressOfTheTool }}">
+<input type="hidden" id="status_OfTheTool" name="variable" value="{{ object.statusOfTheTool }}">
+<input type="hidden" id="category_OfTheTool" name="variable" value="{{ object.categoryOfTheTool }}">
+<input type="hidden" id="image_Address" name="variable" value="{{ object.image }}">
+<input type="hidden" id="borrower_id" name="variable" value="{{ object.borrower_id }}">
+<div class="container-fluid">
+<table class="table table-condensed">
+  <thead>
+      <tr>
+        <th>Tool Image</th>
+        <th>Tool Name</th>
+        <th>Borrower UserName</th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>
+            {% if object.image %}
+            <img src="{{object.image.url}}" class='img-res' height="100" width="100"/>
+            {% endif %}
+        </td>
+        <td><p onclick="requestedToolsDetail()"><u>{{object.nameOfTheTool}}</u></p></td>
+        <td>Borrowed by {{object.borrower_id}}</td>
+    </tr>
+</tbody>
+</table>
+</div>
+{% endif %}
+{% endfor %}
+            {% endif %}
+ </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- View All Approved Requests - End -->
+</div>
+</div>
+{% endblock %}
+

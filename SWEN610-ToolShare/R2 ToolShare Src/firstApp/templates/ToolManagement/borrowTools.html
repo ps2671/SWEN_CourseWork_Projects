@@ -1,0 +1,99 @@
+{% extends "nav_bar.html" %}
+
+{% block main_panel_template %}
+
+<!-- Borrow Tool - Start -->
+<div id="profile" class="container-fluid">
+    <div class="row">
+    <div class="col-sm-10">
+    <div class="panel panel-primary" style="border-color: #34DDDD;">
+        <div class="panel-heading" style="background-color: #34DDDD;">
+            <div class="center-align" style="color: #000000;">
+                <b>Borrow Tools</b>
+            </div>
+        </div>
+
+        {% if tool_req_succ_msg %}
+        hghghghghghg
+    <div class="modal hide fade" id="myModal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Tool Request Success</h3>
+  </div>
+  <div class="modal-body">
+    <p>Tool Request sent successfully.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn">Close</a>
+    <a href="#" class="btn btn-primary">Save changes</a>
+  </div>
+</div>
+        {% endif %}
+
+
+        <div class="panel-body">
+{% if toolsWhichCanBeBorrowed|length == 0%}
+            <div class="center-align" style="color: #000000;">
+<p> There are no available tools at this moment. </p>
+                 </div>
+{% else %}
+<!--dispaly all those tools 1. in the sharezon, 2. not his 3. available 4. not in request table with this man's name and status  = 0           -->
+<!--and object.borrowed == False and object.statusOfTheTool = "Available" and object.requested == False %}            -->
+                    <table class="table table-condensed">
+                      <thead>
+                        <tr>
+                            <th> Image</th>
+                             <th> Name</th>
+                             <th> Address</th>
+                             <th> Status</th>
+                             <th> Category</th>
+                          <!--   <th>From Date</th>
+                            <th>To Date</th> -->
+                             <th>Borrow</th>
+                            <th>In Shed?</th>
+                          </tr>
+                           </thead>
+         {% for object in toolsWhichCanBeBorrowed %}
+            <input type="hidden" id="name_OfTheTool" name="variable" value="{{ object.nameOfTheTool }}">
+                    <input type="hidden" id="address_OfTheTool" name="variable" value="{{ object.addressOfTheTool }}">
+                    <input type="hidden" id="status_OfTheTool" name="variable" value="{{ object.statusOfTheTool }}">
+                    <input type="hidden" id="category_OfTheTool" name="variable" value="{{ object.categoryOfTheTool}}">
+                    <input type="hidden" id="image_Address" name="variable" value="{{ object.image }}">
+<!-- <div class="container-fluid"> -->
+
+                        <tbody>
+                          <tr>
+                             <td>
+                                {% if object.image %}
+                                <img src="{{object.image.url}}" class='img-res' height="100" width="100"/>
+                                 {% else %}
+                                    <p> No Tools To borrow </p>
+                                {% endif %}
+                            </td>
+                            <!-- TODO - Display tool details. -->
+                            <td>{{object.nameOfTheTool}}</td>
+                            <td>{{ object.addressOfTheTool }}</td>
+                    <td>{{ object.statusOfTheTool }}</td>
+                    <td>{{ object.categoryOfTheTool }}</td>
+<form method="post" action="/borrowTools/">{% csrf_token %}
+                     <td><input class="btn btn-primary" type="submit" value="Request" name="borrow"/>
+                                    <input type="hidden" value={{ object.id }} name="IDForTheTool"/>
+                                </td>
+                                </form>
+                            
+                              <td>{% if object.addressOfTheTool != 'Shed' %} No {% else %} Yes {% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+
+                    </table>
+                    {% endif %}
+                     </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- Borrow Tool - End -->
+</div>
+</div>
+{% endblock %}
