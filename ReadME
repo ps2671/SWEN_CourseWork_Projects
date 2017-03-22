@@ -8,14 +8,14 @@ Created different statistical models to analyze cost trends in freelancer commun
 # Intelligent-Systems
 Projects embedded with rule based expert system shell (JESS & e2gDroid). Refer to the pdf "SecureAgentReport" in the project folder for detailed description about the projects and their installations.
 
-#Survey-Papers
+# Survey-Papers
 Consist of survey papers on Software traceability, distributed systems and automation of test plan creation.
 
-#SWEN610-ToolShare
+# SWEN610-ToolShare
 The purpose of this project is to create the Tool Share application. This web-based application’s main functionality is to allow neighbors to exchange commonly used tools. Tool Share is an easy-to-use application, enabling the registration and sharing or borrowing of items in a few easy and straightforward steps. The application is built using python based framework - Django, Bootstrap.
 
-#SWEN745-ConferenceMgmt
+# SWEN745-ConferenceMgmt
 A web-based paper submission and review system for a workshop named "Software Architecture Mining". This project uses the GitHub project "django-notifications" in a modified form suitable to our needs.
 
-#SWEN755-InfPmpWebApp
+# SWEN755-InfPmpWebApp
 Basic Web Application for managing infusion pump. Implemented security principles Authentication, Authorization and Session Mgmt using Django built in APIs.
