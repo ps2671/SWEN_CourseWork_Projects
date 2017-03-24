@@ -1,3 +1,2 @@
 # Freelancer-Cost-Analysis
-Creating models for analyzing the current cost trends in freelancer community. 
-Created different statistical models to analyze cost trends in freelancer community utilizing data from freelancer.com website.
+Created different statistical models to analyze cost trends in freelancer community utilizing data from freelancer website. Created web crawler script to collect data. Used machine learning algorithms - linear regression and random forest to predict freelancer hourly rates.
